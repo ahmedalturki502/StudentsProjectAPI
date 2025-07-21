@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
 
-        //navigational
+        //navigational5
         public ICollection<Student> Students { get; set; }
     }
 }

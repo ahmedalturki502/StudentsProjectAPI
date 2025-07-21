@@ -1,4 +1,4 @@
-﻿namespace StudentsProjectAPI.Models.DTO
+﻿    namespace StudentsProjectAPI.Models.DTO
 {
     public class CreateStudentDTO
     {

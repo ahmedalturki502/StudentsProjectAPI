@@ -43,6 +43,25 @@ namespace StudentsProjectAPI.Controllers
             return Ok(returnedStudent);
         }
 
+        [HttpGet]
+        public IActionResult GetAllStudents()
+        {
+            var students = _studentDbContext.Students
+                .Include(s => s.Department)
+                .Select(s => new GetStudentByIdDTO
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    DepartmentId = s.DepartmentId,
+                    DepartmentName = s.Department.Name
+                })
+                .ToList();
+
+            return Ok(students);
+        }
+
+
+
 
     }
 }

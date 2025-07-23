@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace StudentsProjectAPI.Controllers
@@ -18,7 +19,9 @@ namespace StudentsProjectAPI.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly StudentDbContext _studentDbContext;
-        public StudentsController(StudentDbContext studentDbContext)
+        public StudentsController(
+            StudentDbContext studentDbContext
+            )
         {
             _studentDbContext = studentDbContext;
         }
@@ -79,57 +82,7 @@ namespace StudentsProjectAPI.Controllers
 
             return Ok(students);
         }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterDTO request, [FromServices] UserManager<IdentityUser> userManager, [FromServices] IConfiguration configuration)
-        {
-            var existingUser = await userManager.FindByEmailAsync(request.Email);
-            if (existingUser != null)
-            {
-                return BadRequest("User already exists");
-            }
-
-            var user = new IdentityUser
-            {
-                UserName = request.Email,
-                Email = request.Email
-            };
-
-            var result = await userManager.CreateAsync(user, request.Password);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(result.Errors);
-            }
-
-            // إنشاء التوكن
-            var jwtSettings = configuration.GetSection("Jwt");
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: jwtSettings["Issuer"],
-                audience: jwtSettings["Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["DurationInMinutes"])),
-                signingCredentials: creds
-            );
-
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return Ok(new { token = tokenString });
-        }
-
-
-
-
-
-
+        
+        
     }
 }

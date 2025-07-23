@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentsProjectAPI.Models
 {
-    public class StudentDbContext : DbContext
+    public class StudentDbContext : IdentityDbContext<IdentityUser>
     {
         public StudentDbContext(DbContextOptions<StudentDbContext> options)
             : base(options)
@@ -12,11 +14,7 @@ namespace StudentsProjectAPI.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            Department cs = new Department()
-            {
-                Id=1,
-                Name = "CS"
-            };
+            
             modelBuilder.Entity<Department>().HasData(
                  new Department()
                  {

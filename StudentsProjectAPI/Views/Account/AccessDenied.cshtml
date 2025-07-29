@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "غير مصرح";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-danger text-white text-center">
+                    <h3 class="mb-0">غير مصرح</h3>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-exclamation-triangle text-danger" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="text-danger mb-3">عذراً، لا يمكنك الوصول لهذه الصفحة</h4>
+                    <p class="text-muted mb-4">
+                        يبدو أنك لا تملك الصلاحيات المطلوبة للوصول لهذه الصفحة.
+                        يرجى تسجيل الدخول بحساب صحيح.
+                    </p>
+                    <div class="d-grid gap-2">
+                        <a asp-action="Login" class="btn btn-primary btn-lg">تسجيل الدخول</a>
+                        <a asp-action="Register" class="btn btn-outline-primary">إنشاء حساب جديد</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

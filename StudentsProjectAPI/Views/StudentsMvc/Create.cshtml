@@ -1,0 +1,48 @@
+@model StudentsProjectAPI.Models.Student
+
+<h2 class="mb-4 text-center">إضافة طالب جديد</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<form asp-action="Create" method="post" class="mx-auto" style="max-width: 500px;">
+    @Html.AntiForgeryToken()
+    
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <h6>يوجد أخطاء في البيانات:</h6>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    }
+    
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">اسم الطالب</label>
+        <input asp-for="Name" class="form-control" placeholder="أدخل اسم الطالب" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DepartmentId" class="form-label">القسم</label>
+        <select asp-for="DepartmentId" class="form-select">
+            <option value="">-- اختر القسم --</option>
+            @foreach (var dept in ViewBag.Departments)
+            {
+                <option value="@dept.Id">@dept.Name</option>
+            }
+        </select>
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+    </div>
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success btn-lg">
+            <i class="fas fa-plus"></i> إضافة الطالب
+        </button>
+        <a href="/StudentsMvc/Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> رجوع
+        </a>
+    </div>
+</form> 

@@ -1,0 +1,12 @@
+@model StudentsProjectAPI.Models.Student
+
+<h2 class="mb-4 text-center">Student Details</h2>
+<div class="card mx-auto" style="max-width: 400px;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text"><b>ID:</b> @Model.Id</p>
+        <p class="card-text"><b>Department:</b> @Model.Department?.Name</p>
+        <a href="/StudentsMvc/Edit/@Model.Id" class="btn btn-warning">Edit</a>
+        <a href="/StudentsMvc/Index" class="btn btn-secondary ms-2">Back to List</a>
+    </div>
+</div> 

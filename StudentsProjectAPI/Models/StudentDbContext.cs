@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StudentsProjectAPI.Models
 {
-    public class StudentDbContext : IdentityDbContext<IdentityUser>
+    public class StudentDbContext : IdentityDbContext<IdentityUser>   /*contains DBcontext Propertice + ASB.NET identity like Roles + Users + Claims*/
     {
-        public StudentDbContext(DbContextOptions<StudentDbContext> options)
-            : base(options)
+        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)     //Constructor : مرر إعدادات الاتصال وكل شيء مرتبط بالـ (دي بي كونتكست) إلى الكلاس الأساسي اللي مشتق منه، عشان يقدر يتصرف بشكل صحيح
+
         {
 
         }
@@ -15,7 +15,7 @@ namespace StudentsProjectAPI.Models
         {
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.Entity<Department>().HasData(
+            modelBuilder.Entity<Department>().HasData(    // Seeding
                  new Department()
                  {
                      Id = 1,

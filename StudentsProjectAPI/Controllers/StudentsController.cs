@@ -65,7 +65,7 @@ namespace StudentsProjectAPI.Controllers
                 return Ok(returnedStudent);
             }
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllStudents()
         {
@@ -82,6 +82,20 @@ namespace StudentsProjectAPI.Controllers
 
             return Ok(students);
         }
+        [HttpDelete]
+        public IActionResult DeleteStudent(int id)
+        {
+            var student = _studentDbContext.Students.Find(id);
+
+            if (student == null) { return NotFound(); }
+
+            _studentDbContext.Students.Remove(student);
+            _studentDbContext.SaveChanges();
+
+            return Ok("Sudent Deleted Successfully" );
+        }
+
+        
         
         
     }

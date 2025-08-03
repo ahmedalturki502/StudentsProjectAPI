@@ -33,7 +33,7 @@ namespace StudentsProjectAPI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO request)
-        {     /*يتحقق لو كان الايميل مسجل من قبل*/
+        {     
             
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
 
@@ -47,9 +47,9 @@ namespace StudentsProjectAPI.Controllers
                 UserName = request.Email,
                 Email = request.Email
             };
-            /*تضيف البيانات لقاعدة البيانات*/
+            
             var result = await _userManager.CreateAsync(user, request.Password);
-            /*لو فيه خطأ زي الباسوورد ما يحقق الشروط : يرجع الأخطاء للمستخدم*/
+            
             if (!result.Succeeded)
             {
                 return BadRequest(result.Errors);
@@ -73,7 +73,7 @@ namespace StudentsProjectAPI.Controllers
                 return Unauthorized("Invalid email or password");
             }
 
-            // إعدادات JWT
+            
             var jwtSettings = _configuration.GetSection("Jwt");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
 

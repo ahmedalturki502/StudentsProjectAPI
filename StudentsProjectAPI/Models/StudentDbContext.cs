@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StudentsProjectAPI.Models
 {
-    public class StudentDbContext : IdentityDbContext<IdentityUser>   /*contains DBcontext Propertice + ASB.NET identity like Roles + Users + Claims*/
+    public class StudentDbContext : IdentityDbContext<IdentityUser>   
     {
-        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)     //Constructor : مرر إعدادات الاتصال وكل شيء مرتبط بالـ (دي بي كونتكست) إلى الكلاس الأساسي اللي مشتق منه، عشان يقدر يتصرف بشكل صحيح
-
+        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)       
         {
 
         }
